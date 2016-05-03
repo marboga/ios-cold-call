@@ -10,10 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
     
     let names = ["Allison", "Barbara", "Chuck", "Deborah", "Edgar", "Fox", "Grant", "Hillary", "Ivonna", "Jack", "Kellen", "Laura", "Manu", "Nathaniel", "Olivia", "Perry", "Quina", "Rodney", "Sierra", "Theo", "Una", "Victoria", "Willa", "Xander", "Yoldo", "Zoe"]
     
-    var currentName = 0
+    var currentName = -1
+    var currentNum = Int()
     @IBAction func buttonLabel(sender: UIButton) {
         print("button pressed")
         updateUI()
@@ -21,13 +23,26 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+        nameLabel.text = "Ready?"
+        numberLabel.text = ""
     }
     
     func updateUI() {
         let length = UInt32(names.count - 1)
         currentName = Int(arc4random_uniform(length))
         nameLabel.text = names[currentName]
+        let numberPick = Int(arc4random_uniform(5)) + 1
+        if numberPick < 3 {
+            numberLabel.textColor = UIColor.redColor()
+        }
+        else if numberPick < 5 {
+            numberLabel.textColor = UIColor.orangeColor()
+        }
+        else {
+            numberLabel.textColor = UIColor.greenColor()
+        }
+        numberLabel.text = String(numberPick)
+        
     }
 
     override func didReceiveMemoryWarning() {
